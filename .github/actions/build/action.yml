@@ -9,4 +9,3 @@ runs:
         echo 'Ref name: ${{ github.ref_name }}'
         echo 'Ref: ${{ github.ref }}'
         echo 'Commit: ${{ github.sha }}'
-        ./gradlew --version
