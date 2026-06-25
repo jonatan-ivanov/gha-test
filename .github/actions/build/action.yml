@@ -14,4 +14,4 @@ runs:
         echo 'Ref name: ${{ github.ref_name }}'
         echo 'Ref: ${{ github.ref }}'
         echo 'Commit: ${{ github.sha }}'
-        echo "$RELEASE_VERSION"
+        echo "Release Version: ${{ env.RELEASE_VERSION }}"
