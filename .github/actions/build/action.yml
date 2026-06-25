@@ -1,0 +1,12 @@
+name: "Build Action"
+runs:
+  using: composite
+  steps:
+    - name: Build Info
+      shell: bash
+      run: |
+        echo 'Ref type: ${{ github.ref_type }}'
+        echo 'Ref name: ${{ github.ref_name }}'
+        echo 'Ref: ${{ github.ref }}'
+        echo 'Commit: ${{ github.sha }}'
+        ./gradlew --version
