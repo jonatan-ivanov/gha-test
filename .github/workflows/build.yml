@@ -27,4 +27,4 @@ jobs:
           develocity-access-key: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
       - name: Build
         shell: bash
-        run: ./gradlew build $RELEASE_VERSION_OPTS
+        run: ./gradlew build ${{ env.RELEASE_VERSION_OPTS }}
