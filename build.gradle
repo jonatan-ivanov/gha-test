@@ -1,0 +1,9 @@
+project.version = project.findProperty('release.version') ?: null
+
+tasks.register('build') {
+	def name = project.name
+	def version = project.version
+	doLast {
+		println "$name:$version"
+	}
+}

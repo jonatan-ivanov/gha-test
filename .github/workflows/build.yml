@@ -1,20 +1,30 @@
-name: "Build Workflow"
-"on":
+name: Build
+on:
+  push:
+    branches: [ 'main', '[0-9]+.[0-9]+.x', 'release/**' ]
   workflow_dispatch:
 permissions:
-  contents: "read"
+  contents: read
 concurrency:
-  group: "${{ github.workflow }}-${{ github.ref }}"
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx4g"'
 jobs:
   build:
     name: "Build Job"
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
     steps:
-    - name: "Check Out Code"
-      uses: "actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0" # 7.0.0
-      with:
-        fetch-depth: "0"
-        ref: "${{ github.ref }}"
-    - name: "Build Step"
-      id: "build"
-      uses: "./.github/actions/build"
+      - name: "Check Out Code"
+        uses: "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" # 7.0.1
+        with:
+          fetch-depth: "0"
+          ref: "${{ github.ref }}"
+      - name: Setup Build
+        uses: ./.github/actions/setup-build
+        with:
+          java-version: 26
+          develocity-access-key: ${{ secrets.DEVELOCITY_ACCESS_KEY }}
+      - name: Build
+        shell: bash
+        run: ./gradlew build $RELEASE_VERSION_OPTS
