@@ -42,4 +42,5 @@ runs:
         echo 'Commit: ${{ github.sha }}'
         echo 'Release Version: ${{ env.RELEASE_VERSION }}'
         echo 'Release Version Opts: ${{ env.RELEASE_VERSION_OPTS }}'
+        free --human --committed --total --wide
         ./gradlew --version
